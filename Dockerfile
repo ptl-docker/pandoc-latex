@@ -6,7 +6,13 @@ FROM pandoc/core:3.6-ubuntu
 RUN apt-get update && apt-get -y install texlive-xetex
 
 ##################################################
+# Install custom LUA filters
+ADD filters /usr/local/share/pandoc/filters
+
+##################################################
 # Tidy up and print version number of installed components
 RUN rm -rf /Temp && \
+    echo "*** PANDOC VERSION ***" && \
+    pandoc --version && \
+    echo "*** TEX VERSION ***" && \
     tex --version
-
